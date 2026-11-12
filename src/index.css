@@ -25,6 +25,15 @@
   box-shadow: 0 12px 30px -4px rgba(37, 99, 235, 0.1), 0 4px 12px -2px rgba(30, 58, 138, 0.05);
 }
 
+/* Vibrant Royal Blue Banner for Headers */
+.royal-blue-banner {
+  background: linear-gradient(135deg, #091E42 0%, #172B4D 20%, #0052CC 65%, #0747A6 100%) !important;
+  background-color: #0052CC !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(56, 139, 253, 0.45) !important;
+  box-shadow: 0 12px 35px -5px rgba(9, 30, 66, 0.4), 0 4px 12px -2px rgba(0, 82, 204, 0.3) !important;
+}
+
 .wild-wing-glow {
   box-shadow: 0 0 25px -4px rgba(249, 115, 22, 0.35);
 }

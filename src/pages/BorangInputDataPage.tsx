@@ -297,6 +297,19 @@ export const BorangInputDataPage: React.FC<BorangInputDataPageProps> = ({
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white font-mono font-bold text-slate-900"
                 />
               </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-slate-700 font-bold mb-1">
+                  Pautan Google Sheet Tasmik (Auto-Sync)
+                </label>
+                <input
+                  type="url"
+                  value={formData.spreadsheetUrl || ''}
+                  onChange={(e) => setFormData({ ...formData, spreadsheetUrl: e.target.value })}
+                  placeholder="https://docs.google.com/spreadsheets/d/.../edit?usp=sharing"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white font-mono text-xs text-blue-900"
+                />
+              </div>
             </div>
           </div>
 

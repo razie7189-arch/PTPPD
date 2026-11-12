@@ -43,23 +43,6 @@
     ]
   },
   {
-    "code": "XBA4102",
-    "name": "SEKOLAH KEBANGSAAN BUAYAN",
-    "url": "",
-    "sheet_id": "",
-    "gid": "",
-    "total": 0,
-    "years": {
-      "Tahun 1": 0,
-      "Tahun 2": 0,
-      "Tahun 3": 0,
-      "Tahun 4": 0,
-      "Tahun 5": 0,
-      "Tahun 6": 0
-    },
-    "students": []
-  },
-  {
     "code": "XBA4103",
     "name": "SEKOLAH KEBANGSAAN BUIT HILL",
     "url": "https://docs.google.com/spreadsheets/d/1aVNGQTSFD7EZ0x9T_CMIP-Qbfb1KB7xrs5KIWdhubhQ/edit?usp=sharing",
@@ -634,10 +617,10 @@
   {
     "code": "XBA4128",
     "name": "SEKOLAH KEBANGSAAN BAHANG",
-    "url": "https://docs.google.com/spreadsheets/d/1Q7LsS3M2Hq_NS2N4hA8xi78bM_GpRbjxx5P8mCa6ZO8/edit?gid=2093299478#gid=2093299478",
+    "url": "https://docs.google.com/spreadsheets/d/1Q7LsS3M2Hq_NS2N4hA8xi78bM_GpRbjxx5P8mCa6ZO8/edit?usp=sharing",
     "sheet_id": "1Q7LsS3M2Hq_NS2N4hA8xi78bM_GpRbjxx5P8mCa6ZO8",
-    "gid": "2093299478",
-    "total": 0,
+    "gid": "",
+    "total": 4,
     "years": {
       "Tahun 1": 0,
       "Tahun 2": 0,
@@ -776,23 +759,6 @@
         "year": "TAHUN TIGA"
       }
     ]
-  },
-  {
-    "code": "XBA4385",
-    "name": "SR PENDIDIKAN KHAS PEKAN TUARAN",
-    "url": "",
-    "sheet_id": "",
-    "gid": "",
-    "total": 0,
-    "years": {
-      "Tahun 1": 0,
-      "Tahun 2": 0,
-      "Tahun 3": 0,
-      "Tahun 4": 0,
-      "Tahun 5": 0,
-      "Tahun 6": 0
-    },
-    "students": []
   },
   {
     "code": "XCA4114",
@@ -963,6 +929,192 @@
         "name": "LEAYANA BINTI NATAN",
         "class": "",
         "year": "TAHUN DUA"
+      }
+    ]
+  },
+  {
+    "code": "XCC4124",
+    "name": "SJK(C) YUE MIN",
+    "url": "https://docs.google.com/spreadsheets/d/1D8rIXzmevT2NjoaxTVYO83fzwm01XFVVGMJGI934LEM/edit?usp=sharing",
+    "sheet_id": "1D8rIXzmevT2NjoaxTVYO83fzwm01XFVVGMJGI934LEM",
+    "gid": "",
+    "total": 145,
+    "years": {
+      "Tahun 1": 33,
+      "Tahun 2": 40,
+      "Tahun 3": 27,
+      "Tahun 4": 29,
+      "Tahun 5": 17,
+      "Tahun 6": 7
+    },
+    "students": [
+      {
+        "name": "DELISHA BINTI ABDULLAH",
+        "class": "XIAO",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "ANGELICA JONG SHI YEE BINTI ABDULLAH",
+        "class": "XIAO",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "CARVINNA CHIEW ABDULLAH",
+        "class": "XIAO",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "DANISH EMRAN CHANG BIN CHANG YEW JOE",
+        "class": "XIAO",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "FARISH RAIHAN DANIAL BIN ABDULLAH",
+        "class": "XIAO",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "AISYA NUR RAYYANA BINTI MOHD SYAREZAN",
+        "class": "YI",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "AMENDA WONG HUI TING BINTI ABDULLAH",
+        "class": "YI",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "ASHER ACYRES ANANDAN",
+        "class": "YI",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "DANIEL CHAI YUE WEN BIN ABDULLAH",
+        "class": "YI",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "AROURA CHIA YU EN",
+        "class": "YI",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "FILBOR TALABERO JUNIOR",
+        "class": "YI",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "KHAYLA SUMAYYAH BINTI KHAIRIL AZAHARI",
+        "class": "YI",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "NORHIDAYA BINTI ABDULLAH",
+        "class": "YI",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "NUR ARISHA BINTI RIDSMAIN",
+        "class": "YI",
+        "year": "TAHUN TIGA"
+      },
+      {
+        "name": "VEE ARIANA TEO",
+        "class": "YI",
+        "year": "TAHUN TIGA"
+      }
+    ]
+  },
+  {
+    "code": "XCC4104",
+    "name": "SJK(C) HWA SHIONG",
+    "url": "https://docs.google.com/spreadsheets/d/1iglgOxxcvWGWSWmQ_QYpi-piKKLHe7v8LVl6gHXVUTk/edit?usp=sharing",
+    "sheet_id": "1iglgOxxcvWGWSWmQ_QYpi-piKKLHe7v8LVl6gHXVUTk",
+    "gid": "",
+    "total": 368,
+    "years": {
+      "Tahun 1": 70,
+      "Tahun 2": 75,
+      "Tahun 3": 66,
+      "Tahun 4": 63,
+      "Tahun 5": 60,
+      "Tahun 6": 64
+    },
+    "students": [
+      {
+        "name": "AMELIA HUMAIRA BINTI HAFIS AZHAR",
+        "class": "XIAO",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "AZRYZAL NOAH BIN AZMIZIE",
+        "class": "XIAO",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "DHIA NUR ZAYANI BINTI AG ADAHNAN",
+        "class": "XIAO",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "NUR ASSYIFA INSYIRAH BINTI BASRI",
+        "class": "XIAO",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "NUR AZIN PUTRI SERI BINTI JAMAIN",
+        "class": "XIAO",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "NUR MYAZARA FARISYA BINTI AJIRULLAH",
+        "class": "XIAO",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "RAYSHA RAYNIA BINTI RUDI",
+        "class": "XIAO",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "RAYYAN LOW",
+        "class": "XIAO",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "ALEESYA MAISARAH BINTI ROSNI",
+        "class": "TI",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "HANA MADINAH BINTI ADSMIL",
+        "class": "TI",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "ISABELLA DINA",
+        "class": "TI",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "LUQMAN BIN CHIN VUI LIP",
+        "class": "TI",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "MOHAMAD DAMIEN ANDRIANCE BIN PATLAN",
+        "class": "TI",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "MOHAMAD HAFIZ SYAHDAN BIN ABDULLAH",
+        "class": "TI",
+        "year": "TAHUN LIMA"
+      },
+      {
+        "name": "MUHAMMAD ARYAN ERZA BIN MOHD HAIREY",
+        "class": "TI",
+        "year": "TAHUN LIMA"
       }
     ]
   }

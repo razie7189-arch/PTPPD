@@ -134,10 +134,10 @@ export const Header: React.FC<HeaderProps> = ({
 
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 group-hover:text-orange-600 transition-colors">
+                <h1 className="text-lg sm:text-xl font-black tracking-tight text-blue-950 group-hover:text-blue-700 transition-colors">
                   Portal Pelaporan Tasmik
                 </h1>
-                <span className="bg-linear-to-r from-orange-500 to-amber-500 text-white text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-md shadow-xs">
+                <span className="bg-linear-to-r from-blue-700 to-indigo-800 text-white text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-md shadow-xs">
                   Daerah Penampang
                 </span>
               </div>
@@ -162,7 +162,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => onNavigate('borang-input')}
-              className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-white bg-linear-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 rounded-xl shadow-xs hover:shadow-orange-200 hover:shadow-md transition-all active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-white bg-linear-to-r from-blue-700 to-indigo-800 hover:from-blue-800 hover:to-indigo-900 rounded-xl shadow-xs hover:shadow-blue-200 hover:shadow-md transition-all active:scale-95 cursor-pointer"
             >
               <FileEdit className="w-3.5 h-3.5" />
               <span>Input Data Sekolah</span>
@@ -180,7 +180,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex lg:hidden items-center gap-2">
             <button
               onClick={() => onNavigate('borang-input')}
-              className="p-2 text-orange-600 bg-orange-50 hover:bg-orange-100 rounded-xl transition-colors"
+              className="p-2 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors"
               title="Input Data"
             >
               <FileEdit className="w-5 h-5" />

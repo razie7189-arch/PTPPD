@@ -260,26 +260,32 @@ export const RekalibrasiPage: React.FC<RekalibrasiPageProps> = ({
   return (
     <div className="space-y-6 pb-16">
       {/* Top Official Banner matching KPM PDF */}
-      <div className="apple-card rounded-3xl p-6 sm:p-8 bg-linear-to-br from-blue-950 via-blue-900 to-indigo-950 text-white border-blue-800/80 shadow-xl shadow-blue-950/20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
+      <div
+        className="royal-blue-banner rounded-3xl p-6 sm:p-8 relative overflow-hidden text-white"
+        style={{
+          background: 'linear-gradient(135deg, #091E42 0%, #0F2D6B 25%, #0052CC 70%, #0747A6 100%)',
+          backgroundColor: '#0052CC'
+        }}
+      >
+        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
 
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-200 text-xs font-semibold">
+              <span className="px-3 py-1 rounded-full bg-blue-900/60 border border-blue-400/50 text-blue-100 text-xs font-bold">
                 Sektor Pendidikan Islam (SPI ITQAN: menjana kualiti)
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold">
+              <span className="px-2.5 py-0.5 rounded-full bg-amber-400 text-blue-950 text-xs font-black shadow-xs">
                 Tahun 2026
               </span>
             </div>
-            <h1 className="text-xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
+            <h1 className="text-xl sm:text-3xl font-black tracking-tight text-white leading-tight">
               TAPAK REKALIBRASI PROGRAM j-QAF TAHUN 2026 <br />
-              <span className="bg-linear-to-r from-orange-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent">
+              <span className="text-amber-300 drop-shadow-sm font-black">
                 KESELURUHAN DAERAH PENAMPANG & SEMUA SEKOLAH
               </span>
             </h1>
-            <p className="text-xs sm:text-sm text-blue-100 max-w-3xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-blue-100 max-w-3xl leading-relaxed font-medium">
               Format standard dokumen rasmi KPM & JPN Sabah. Mengandungi lembaran tapak rekalibrasi
               keseluruhan Pejabat Pendidikan Daerah (PPD) Penampang serta tapak individu bagi setiap
               sekolah dengan cetakan PDF rasmi A4.
@@ -291,50 +297,62 @@ export const RekalibrasiPage: React.FC<RekalibrasiPageProps> = ({
               onClick={() => setActiveTab('daerah')}
               className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'daerah'
-                  ? 'bg-amber-400 text-blue-950 shadow-md font-black'
-                  : 'bg-white/10 text-white hover:bg-white/20'
+                  ? 'bg-white text-blue-950 shadow-md font-black'
+                  : 'bg-blue-950/70 text-white hover:bg-blue-900/80 border border-blue-400/30'
               }`}
             >
-              <Building2 className="w-4 h-4" />
+              <Building2 className="w-4 h-4 text-blue-700" />
               <span>Tapak Daerah & Sekolah</span>
             </button>
             <button
               onClick={() => setActiveTab('kelas')}
               className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'kelas'
-                  ? 'bg-amber-400 text-blue-950 shadow-md font-black'
-                  : 'bg-white/10 text-white hover:bg-white/20'
+                  ? 'bg-white text-blue-950 shadow-md font-black'
+                  : 'bg-blue-950/70 text-white hover:bg-blue-900/80 border border-blue-400/30'
               }`}
             >
-              <Layers className="w-4 h-4" />
+              <Layers className="w-4 h-4 text-blue-700" />
               <span>Matriks Enrolmen Kelas</span>
             </button>
           </div>
         </div>
 
         {/* District Highlight Cards */}
-        <div className="mt-6 pt-5 border-t border-blue-900/80 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-          <div className="bg-blue-900/40 border border-blue-800/60 rounded-2xl p-3">
-            <span className="text-[10px] uppercase font-bold text-blue-300 tracking-wider">Sekolah Terlibat</span>
+        <div className="mt-6 pt-5 border-t border-blue-400/30 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+          <div
+            className="rounded-2xl p-3.5 border border-blue-400/30 shadow-xs"
+            style={{ backgroundColor: 'rgba(9, 30, 66, 0.85)' }}
+          >
+            <span className="text-[10px] uppercase font-bold text-sky-300 tracking-wider">Sekolah Terlibat</span>
             <div className="text-lg sm:text-xl font-black text-white mt-0.5">{districtStats.totalSchools} Buah Sekolah</div>
-            <span className="text-[10px] text-blue-300">PPD Penampang, Sabah</span>
+            <span className="text-[10px] text-blue-200">PPD Penampang, Sabah</span>
           </div>
 
-          <div className="bg-blue-900/40 border border-blue-800/60 rounded-2xl p-3">
-            <span className="text-[10px] uppercase font-bold text-blue-300 tracking-wider">Jumlah Murid Sasaran</span>
+          <div
+            className="rounded-2xl p-3.5 border border-blue-400/30 shadow-xs"
+            style={{ backgroundColor: 'rgba(9, 30, 66, 0.85)' }}
+          >
+            <span className="text-[10px] uppercase font-bold text-sky-300 tracking-wider">Jumlah Murid Sasaran</span>
             <div className="text-lg sm:text-xl font-black text-white mt-0.5">{districtStats.totalMurid.toLocaleString()} Orang</div>
-            <span className="text-[10px] text-blue-300">Tahun 1 - Tahun 6</span>
+            <span className="text-[10px] text-blue-200">Tahun 1 - Tahun 6</span>
           </div>
 
-          <div className="bg-blue-900/40 border border-blue-800/60 rounded-2xl p-3">
+          <div
+            className="rounded-2xl p-3.5 border border-blue-400/30 shadow-xs"
+            style={{ backgroundColor: 'rgba(9, 30, 66, 0.85)' }}
+          >
             <span className="text-[10px] uppercase font-bold text-amber-300 tracking-wider">Kebolehbacaan Al-Quran</span>
             <div className="text-lg sm:text-xl font-black text-amber-300 mt-0.5">{districtStats.pctKebolehbacaan}%</div>
             <span className="text-[10px] text-blue-200">{districtStats.kebolehbacaan.toLocaleString()} Murid (Juz 1-30 & Khatam)</span>
           </div>
 
-          <div className="bg-blue-900/40 border border-blue-800/60 rounded-2xl p-3">
-            <span className="text-[10px] uppercase font-bold text-purple-300 tracking-wider">Khatam Al-Quran</span>
-            <div className="text-lg sm:text-xl font-black text-purple-300 mt-0.5">{districtStats.pctKhatam}%</div>
+          <div
+            className="rounded-2xl p-3.5 border border-blue-400/30 shadow-xs"
+            style={{ backgroundColor: 'rgba(9, 30, 66, 0.85)' }}
+          >
+            <span className="text-[10px] uppercase font-bold text-sky-300 tracking-wider">Khatam Al-Quran</span>
+            <div className="text-lg sm:text-xl font-black text-white mt-0.5">{districtStats.pctKhatam}%</div>
             <span className="text-[10px] text-blue-200">{districtStats.totalKhatam.toLocaleString()} Murid Khatam 30 Juz</span>
           </div>
         </div>

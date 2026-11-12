@@ -510,6 +510,20 @@ export const StatusPelaporanPage: React.FC<StatusPelaporanPageProps> = ({
                 <span className="text-slate-500 font-semibold">Kemaskini Terakhir:</span>
                 <span className="text-slate-800">{detailSchool.lastUpdated}</span>
               </div>
+              {detailSchool.spreadsheetUrl && (
+                <div className="flex justify-between items-center pt-1">
+                  <span className="text-slate-500 font-semibold">Pautan Google Sheet:</span>
+                  <a
+                    href={detailSchool.spreadsheetUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1 text-emerald-700 hover:text-emerald-800 font-bold underline"
+                  >
+                    <span>Buka Google Sheet</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              )}
               {detailSchool.notes && (
                 <div className="pt-2 border-t border-slate-200">
                   <span className="text-slate-500 block mb-1">Catatan Tambahan:</span>
@@ -616,6 +630,17 @@ export const StatusPelaporanPage: React.FC<StatusPelaporanPageProps> = ({
                     setEditingSchool({ ...editingSchool, totalStudents: parseInt(e.target.value) || 0 })
                   }
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white font-mono"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-slate-700 font-bold mb-1">Pautan Google Sheet Tasmik (Auto-Sync)</label>
+                <input
+                  type="url"
+                  value={editingSchool.spreadsheetUrl || ''}
+                  onChange={(e) => setEditingSchool({ ...editingSchool, spreadsheetUrl: e.target.value })}
+                  placeholder="https://docs.google.com/spreadsheets/d/.../edit?usp=sharing"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white text-blue-900 font-mono text-xs"
                 />
               </div>
 

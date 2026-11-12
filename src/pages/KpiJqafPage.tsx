@@ -23,14 +23,20 @@ export const KpiJqafPage: React.FC<KpiJqafPageProps> = ({ models, onNavigateToRe
   return (
     <div className="space-y-8 pb-16">
       {/* Header Banner matching Pages 2, 3, 4 of PDF */}
-      <div className="apple-card rounded-3xl p-6 sm:p-8 bg-linear-to-br from-blue-950 via-blue-900 to-indigo-950 text-white border-blue-800/80 shadow-xl shadow-blue-950/20">
+      <div
+        className="royal-blue-banner rounded-3xl p-6 sm:p-8 relative overflow-hidden text-white shadow-xl"
+        style={{
+          background: 'linear-gradient(135deg, #091E42 0%, #0F2D6B 25%, #0052CC 70%, #0747A6 100%)',
+          backgroundColor: '#0052CC'
+        }}
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="p-2 rounded-xl bg-blue-500/20 text-amber-300 border border-blue-400/30">
+              <span className="p-2 rounded-xl bg-blue-500/30 text-cyan-300 border border-blue-400/40">
                 <Award className="w-5 h-5" />
               </span>
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-200">
+              <span className="text-xs font-bold uppercase tracking-wider text-sky-200">
                 Sektor Pendidikan Islam (SPI ITQAN: menjana kualiti)
               </span>
             </div>
@@ -44,20 +50,20 @@ export const KpiJqafPage: React.FC<KpiJqafPageProps> = ({ models, onNavigateToRe
 
           <button
             onClick={onNavigateToRekalibrasi}
-            className="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-xl text-xs font-bold bg-linear-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-lg shadow-orange-500/25 transition-all cursor-pointer self-start sm:self-auto"
+            className="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-xl text-xs font-black bg-white text-blue-950 hover:bg-blue-50 shadow-lg shadow-blue-950/20 transition-all cursor-pointer self-start sm:self-auto"
           >
             <span>Buka Tapak Rekalibrasi</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 text-blue-900" />
           </button>
         </div>
 
         {/* Level Selector Tabs */}
-        <div className="mt-6 pt-5 border-t border-blue-900/80 flex flex-wrap items-center gap-2">
+        <div className="mt-6 pt-5 border-t border-blue-700/60 flex flex-wrap items-center gap-2">
           <button
             onClick={() => setActiveLevel('ppd')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeLevel === 'ppd'
-                ? 'bg-amber-400 text-slate-950 shadow-md'
+                ? 'bg-white text-blue-950 shadow-md font-black'
                 : 'bg-white/10 text-blue-100 hover:bg-white/20'
             }`}
           >
@@ -67,7 +73,7 @@ export const KpiJqafPage: React.FC<KpiJqafPageProps> = ({ models, onNavigateToRe
             onClick={() => setActiveLevel('negeri')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeLevel === 'negeri'
-                ? 'bg-amber-400 text-slate-950 shadow-md'
+                ? 'bg-white text-blue-950 shadow-md font-black'
                 : 'bg-white/10 text-blue-100 hover:bg-white/20'
             }`}
           >
@@ -77,7 +83,7 @@ export const KpiJqafPage: React.FC<KpiJqafPageProps> = ({ models, onNavigateToRe
             onClick={() => setActiveLevel('kebangsaan')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeLevel === 'kebangsaan'
-                ? 'bg-amber-400 text-slate-950 shadow-md'
+                ? 'bg-white text-blue-950 shadow-md font-black'
                 : 'bg-white/10 text-blue-100 hover:bg-white/20'
             }`}
           >

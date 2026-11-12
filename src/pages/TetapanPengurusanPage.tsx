@@ -539,25 +539,25 @@ export const TetapanPengurusanPage: React.FC<TetapanPengurusanPageProps> = ({
           <div className="apple-card rounded-3xl p-6 sm:p-7 space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <Code2 className="w-4 h-4 text-orange-500" />
+                <Code2 className="w-4 h-4 text-blue-600" />
                 <h3 className="text-sm font-bold text-slate-900">
                   Skrip SQL Supabase (1-Klik Salin)
                 </h3>
               </div>
               <button
                 onClick={handleCopySql}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-orange-50 text-orange-700 hover:bg-orange-100 border border-orange-200 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-blue-50 text-blue-800 hover:bg-blue-100 border border-blue-200 transition-colors cursor-pointer"
               >
-                {copiedSql ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copiedSql ? 'Disalin!' : 'Salin Skrip SQL'}</span>
+                {copiedSql ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-blue-600" />}
+                <span>{copiedSql ? 'Disalin ke Papan Keratan!' : 'Salin Skrip SQL'}</span>
               </button>
             </div>
 
             <p className="text-xs text-slate-500 leading-relaxed">
-              Jalankan skrip ini dalam <b>Supabase SQL Editor</b> untuk membina semua 6 jadual rasmi (tasmik_records, upi_officers, upi_takwim, guru_tasmik, tasmik_documents, dashboard_modules) berserta polisi keselamatan RLS.
+              Jalankan skrip ini dalam <b>Supabase SQL Editor</b> untuk membina kesemua 10 jadual rasmi portal (tasmik_records, upi_officers, upi_takwim, guru_tasmik, tasmik_documents, dashboard_modules, class_cohorts, jqaf_models, intervensi_programs, sekolah_fokus) berserta polisi keselamatan RLS dan indeks kelajuan.
             </p>
 
-            <div className="bg-blue-950 text-blue-200 p-3.5 rounded-2xl font-mono text-[10px] max-h-48 overflow-y-auto leading-relaxed border border-blue-900">
+            <div className="bg-blue-950 text-blue-200 p-3.5 rounded-2xl font-mono text-[10px] max-h-56 overflow-y-auto leading-relaxed border border-blue-900">
               <pre>{supabaseService.getSqlMigrationSchema()}</pre>
             </div>
           </div>

@@ -176,49 +176,36 @@ class SupabaseService {
     }
     const local = this.getLocal<TasmikSchoolRecord[]>('schools', INITIAL_SCHOOLS);
 
-    // Pastikan SK Koidupan dibuang dan SK Tansau menggunakan kod XBA4109
-    let sanitized = (local || [])
-      .filter(s => 
-        !s.schoolName?.toUpperCase().includes('KOIDUPAN') &&
-        !s.schoolCode?.toUpperCase().includes('KOIDUPAN')
-      )
-      .map(s => {
-        if (s.schoolName?.toUpperCase().includes('TANSAU')) {
-          return {
-            ...s,
-            schoolCode: 'XBA4109',
-            submittedBy: s.submittedBy?.includes('XBA4106') ? 'Penyelaras Tasmik / GPI XBA4109' : s.submittedBy
-          };
-        }
-        return s;
-      });
+    // Senarai 25 kod sekolah rasmi Daerah Penampang
+    const officialCodes = new Set(INITIAL_SCHOOLS.map((s) => s.schoolCode));
 
-    // Pastikan kesemua sekolah daripada fail master dimasukkan sekiranya local data versi lama
-    if (!sanitized || sanitized.length < INITIAL_SCHOOLS.length) {
-      const existingCodes = new Set(sanitized.map(s => s.schoolCode));
-      const merged = [...sanitized];
-      for (const master of INITIAL_SCHOOLS) {
-        if (!existingCodes.has(master.schoolCode)) {
-          merged.push(master);
-        } else {
-          const idx = merged.findIndex(s => s.schoolCode === master.schoolCode);
-          if (idx >= 0 && master.spreadsheetUrl && !merged[idx].spreadsheetUrl) {
-            merged[idx] = {
-              ...merged[idx],
-              spreadsheetUrl: master.spreadsheetUrl,
-              sheetGid: master.sheetGid,
-              syncStatus: master.syncStatus,
-              syncedStudentCount: master.syncedStudentCount,
-              lastSyncedAt: master.lastSyncedAt
-            };
-          }
-        }
+    // Buang sekolah tidak sah (cth: SK Buayan, SK Koidupan, SR Pendidikan Khas Tuaran)
+    // dan kemas kini nama, kod serta pautan Google Sheet terkini
+    const existingMap = new Map<string, TasmikSchoolRecord>();
+    (local || []).forEach((s) => {
+      const fixedCode = s.schoolName?.toUpperCase().includes('TANSAU') ? 'XBA4109' : s.schoolCode;
+      if (officialCodes.has(fixedCode)) {
+        existingMap.set(fixedCode, { ...s, schoolCode: fixedCode });
       }
-      this.setLocal('schools', merged);
-      return merged;
-    }
-    this.setLocal('schools', sanitized);
-    return sanitized;
+    });
+
+    const reconciled: TasmikSchoolRecord[] = INITIAL_SCHOOLS.map((master) => {
+      const existing = existingMap.get(master.schoolCode);
+      if (existing) {
+        return {
+          ...existing,
+          schoolCode: master.schoolCode,
+          schoolName: master.schoolName,
+          spreadsheetUrl: master.spreadsheetUrl,
+          sheetGid: master.sheetGid,
+          zone: undefined,
+        };
+      }
+      return { ...master, zone: undefined };
+    });
+
+    this.setLocal('schools', reconciled);
+    return reconciled;
   }
 
   public async saveSchoolsBatch(records: TasmikSchoolRecord[]): Promise<void> {
@@ -771,15 +758,15 @@ class SupabaseService {
   public getSqlMigrationSchema(): string {
     return `-- ========================================================
 -- SKRIP MIGRATION SUPABASE: PORTAL PELAPORAN TASMIK PENAMPANG
--- Jalankan skrip ini dalam Supabase Dashboard -> SQL Editor
+-- Sektor Pendidikan Islam, Pejabat Pendidikan Daerah Penampang
+-- Jalankan skrip ini dalam Supabase Dashboard -> SQL Editor -> New Query
 -- ========================================================
 
--- 1. Jadual Rekod Tasmik Sekolah
+-- 1. Jadual Rekod Pelaporan Tasmik Sekolah (Termasuk Google Sheet Sync)
 CREATE TABLE IF NOT EXISTS tasmik_records (
   id TEXT PRIMARY KEY,
-  "schoolCode" TEXT NOT NULL,
+  "schoolCode" TEXT NOT NULL UNIQUE,
   "schoolName" TEXT NOT NULL,
-  zone TEXT NOT NULL,
   "totalStudents" INTEGER NOT NULL DEFAULT 0,
   iqra1 INTEGER NOT NULL DEFAULT 0,
   iqra2 INTEGER NOT NULL DEFAULT 0,
@@ -794,13 +781,19 @@ CREATE TABLE IF NOT EXISTS tasmik_records (
   juz26_30 INTEGER NOT NULL DEFAULT 0,
   khatam INTEGER NOT NULL DEFAULT 0,
   "submissionStatus" TEXT NOT NULL DEFAULT 'Selesai',
+  "spreadsheetUrl" TEXT,
+  "sheetGid" TEXT,
+  "syncStatus" TEXT DEFAULT 'Tiada Pautan',
+  "lastSyncedAt" TEXT,
+  "syncedStudentCount" INTEGER DEFAULT 0,
+  "classBreakdown" JSONB,
   "lastUpdated" TEXT NOT NULL,
   "submittedBy" TEXT NOT NULL,
   "phoneContact" TEXT,
   notes TEXT
 );
 
--- 2. Jadual Pegawai Unit Pendidikan Islam
+-- 2. Jadual Pegawai Unit Pendidikan Islam PPD Penampang
 CREATE TABLE IF NOT EXISTS upi_officers (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
@@ -828,7 +821,7 @@ CREATE TABLE IF NOT EXISTS upi_takwim (
   notes TEXT
 );
 
--- 4. Jadual Guru Tasmik & GPI
+-- 4. Jadual Senarai Guru Tasmik & Guru Pendidikan Islam (GPI)
 CREATE TABLE IF NOT EXISTS guru_tasmik (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
@@ -841,7 +834,7 @@ CREATE TABLE IF NOT EXISTS guru_tasmik (
   status TEXT NOT NULL DEFAULT 'Aktif'
 );
 
--- 5. Jadual Dokumen PDF & Panduan
+-- 5. Jadual Dokumen PDF & Buku Panduan
 CREATE TABLE IF NOT EXISTS tasmik_documents (
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
@@ -853,7 +846,7 @@ CREATE TABLE IF NOT EXISTS tasmik_documents (
   "fileSize" TEXT
 );
 
--- 6. Jadual Modul Dashboard
+-- 6. Jadual Modul Dashboard Dinamik
 CREATE TABLE IF NOT EXISTS dashboard_modules (
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
@@ -866,13 +859,76 @@ CREATE TABLE IF NOT EXISTS dashboard_modules (
   "isActive" BOOLEAN NOT NULL DEFAULT true
 );
 
--- Enable RLS & Buat Polisi Akses Awam (Read & Write)
+-- 7. Jadual Kohort Matriks Rekalibrasi Kelas (Tahun 1 - 6)
+CREATE TABLE IF NOT EXISTS class_cohorts (
+  id TEXT PRIMARY KEY,
+  kelas TEXT NOT NULL,
+  "bilMurid" INTEGER NOT NULL DEFAULT 0,
+  i1 INTEGER NOT NULL DEFAULT 0,
+  i2 INTEGER NOT NULL DEFAULT 0,
+  i3 INTEGER NOT NULL DEFAULT 0,
+  i4 INTEGER NOT NULL DEFAULT 0,
+  i5 INTEGER NOT NULL DEFAULT 0,
+  i6 INTEGER NOT NULL DEFAULT 0,
+  juz1_5 INTEGER NOT NULL DEFAULT 0,
+  juz6_10 INTEGER NOT NULL DEFAULT 0,
+  juz11_15 INTEGER NOT NULL DEFAULT 0,
+  juz16_20 INTEGER NOT NULL DEFAULT 0,
+  juz21_25 INTEGER NOT NULL DEFAULT 0,
+  juz26_30 INTEGER NOT NULL DEFAULT 0,
+  khatam INTEGER NOT NULL DEFAULT 0
+);
+
+-- 8. Jadual KPI 6 Model Program j-QAF 2026
+CREATE TABLE IF NOT EXISTS jqaf_models (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  "kpiKebangsaan" NUMERIC NOT NULL,
+  "kpiNegeri" NUMERIC NOT NULL,
+  "kpiPpd" NUMERIC NOT NULL,
+  "currentScore" NUMERIC NOT NULL,
+  status TEXT NOT NULL,
+  target TEXT NOT NULL,
+  description TEXT NOT NULL
+);
+
+-- 9. Jadual Program Intervensi Tasmik
+CREATE TABLE IF NOT EXISTS intervensi_programs (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  category TEXT NOT NULL,
+  "targetGroup" TEXT NOT NULL,
+  actions JSONB NOT NULL DEFAULT '[]',
+  tempoh TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'Perancangan',
+  "pegawaiPenyelaras" TEXT NOT NULL
+);
+
+-- 10. Jadual Sekolah Fokus Bimbingan UPI PPD Penampang
+CREATE TABLE IF NOT EXISTS sekolah_fokus (
+  id TEXT PRIMARY KEY,
+  "schoolName" TEXT NOT NULL,
+  "schoolCode" TEXT NOT NULL,
+  "fokusIsu" TEXT NOT NULL,
+  "tindakanIntervensi" TEXT NOT NULL,
+  "tarikhBimbingan" TEXT NOT NULL,
+  "pegawaiBimbingan" TEXT NOT NULL,
+  "statusTindakan" TEXT NOT NULL DEFAULT 'Akan Dilawati'
+);
+
+-- ========================================================
+-- ROW LEVEL SECURITY (RLS) & POLISI AKSES AWAM WEB
+-- ========================================================
 ALTER TABLE tasmik_records ENABLE ROW LEVEL SECURITY;
 ALTER TABLE upi_officers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE upi_takwim ENABLE ROW LEVEL SECURITY;
 ALTER TABLE guru_tasmik ENABLE ROW LEVEL SECURITY;
 ALTER TABLE tasmik_documents ENABLE ROW LEVEL SECURITY;
 ALTER TABLE dashboard_modules ENABLE ROW LEVEL SECURITY;
+ALTER TABLE class_cohorts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE jqaf_models ENABLE ROW LEVEL SECURITY;
+ALTER TABLE intervensi_programs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE sekolah_fokus ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Akses Awam Tasmik Records" ON tasmik_records FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Akses Awam UPI Officers" ON upi_officers FOR ALL USING (true) WITH CHECK (true);
@@ -880,6 +936,15 @@ CREATE POLICY "Akses Awam UPI Takwim" ON upi_takwim FOR ALL USING (true) WITH CH
 CREATE POLICY "Akses Awam Guru Tasmik" ON guru_tasmik FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Akses Awam Tasmik Documents" ON tasmik_documents FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Akses Awam Dashboard Modules" ON dashboard_modules FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Akses Awam Class Cohorts" ON class_cohorts FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Akses Awam Jqaf Models" ON jqaf_models FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Akses Awam Intervensi Programs" ON intervensi_programs FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Akses Awam Sekolah Fokus" ON sekolah_fokus FOR ALL USING (true) WITH CHECK (true);
+
+-- INDEXES UNTUK KELAJUAN AKSES SISTEM
+CREATE INDEX IF NOT EXISTS idx_tasmik_school_code ON tasmik_records("schoolCode");
+CREATE INDEX IF NOT EXISTS idx_guru_school_name ON guru_tasmik("schoolName");
+CREATE INDEX IF NOT EXISTS idx_fokus_school_code ON sekolah_fokus("schoolCode");
 `;
   }
 
