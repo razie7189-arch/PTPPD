@@ -1,0 +1,6 @@
+{
+  "name": "Portal Pelaporan Tasmik Daerah Penampang",
+  "description": "Portal Pengurusan dan Pelaporan Tasmik Al-Quran & Iqra Unit Pendidikan Islam PPD Penampang, Sabah. Memantau pencapaian Iqra 1-6, Juz 1-30, Khatam Al-Quran, KPI 95%, takwim, dan direktori pegawai.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
